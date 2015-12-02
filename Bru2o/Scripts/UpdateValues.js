@@ -120,7 +120,30 @@
             spargeChalkVal = Math.round(spargeChalkVal * 100) / 100
             document.getElementById('spargeChalk').innerHTML = spargeChalkVal;
 
-            //Set new values
+            //Calculate Water Profile
+            var calcium = (1 - (mashDilution / 100)) * startCalcium + (chalk * 105.89 + gypsum * 60 + calciumChloride * 72 + slakedLime * 143) / mashGal;
+            document.getElementById('calcium').innerHTML = calcium.toFixed(0);
+            var magnesium = (1 - (mashDilution / 100)) * startMagnesium + epsomSalt * 24.6 / mashGal;
+            document.getElementById('magnesium').innerHTML = magnesium.toFixed(0);
+            var sodium = (1 - (mashDilution / 100)) * startSodium + bakingSoda * 72.3 / mashGal;
+            document.getElementById('sodium').innerHTML = sodium.toFixed(0);
+            var chloride = (1 - (mashDilution / 100)) * startChloride + calciumChloride * 127.47 / mashGal;
+            document.getElementById('chloride').innerHTML = chloride.toFixed(0);
+            var sulfate = (1 - (mashDilution / 100)) * startSulfate + (gypsum * 147.4 + epsomSalt * 103) / mashGal;
+            document.getElementById('sulfate').innerHTML = sulfate.toFixed(0);
+            var clsoRatio = chloride / sulfate;
+            document.getElementById('clsoRatio').innerHTML = clsoRatio.toFixed(2);
+
+            //Calculate Effective Alkalinity
+            var lacticAcidContent = 0.88;
+            var maltAcidContent= .02;
+            var eAlkalinity = (1 - (mashDilution / 100)) * startAlkalinity * (50 / 61) + (chalk * 130 + bakingSoda * 157 - 176.1 * lacticAcid * lacticAcidContent * 2 - 4160.4 *
+                maltAcidContent * acidMalt * 2.5 + slakedLime * 357) / mashGal;
+            document.getElementById('eAlkalinity').innerHTML = eAlkalinity.toFixed(0);
+
+            //Calculate Residual Alkalinity
+            var rAlkalinity = eAlkalinity - ((calcium / 1.4) + magnesium / 1.7);
+            document.getElementById('rAlkalinity').innerHTML = rAlkalinity.toFixed(0);
         }
     });
 }
