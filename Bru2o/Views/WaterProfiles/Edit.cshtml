@@ -1,0 +1,35 @@
+﻿@model Bru2o.Models.ViewModels.ProfileData
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm("Edit", "WaterProfiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Partial("_ModifyWaterProfile")
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript" src="~/Scripts/UpdateValues.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+            $("[data-toggle=popover]").popover();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            updateValues();
+        });
+    </script>
+
+}

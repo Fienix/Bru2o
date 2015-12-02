@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bru2o", "Bru2o\Bru2o.csproj", "{E50FA401-C2B4-4610-88FA-80695FBA85A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bru2o.Tests", "Bru2o.Tests\Bru2o.Tests.csproj", "{4AE6C9E5-C47B-40FB-B680-2B9859018FAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E50FA401-C2B4-4610-88FA-80695FBA85A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E50FA401-C2B4-4610-88FA-80695FBA85A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E50FA401-C2B4-4610-88FA-80695FBA85A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E50FA401-C2B4-4610-88FA-80695FBA85A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AE6C9E5-C47B-40FB-B680-2B9859018FAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AE6C9E5-C47B-40FB-B680-2B9859018FAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AE6C9E5-C47B-40FB-B680-2B9859018FAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AE6C9E5-C47B-40FB-B680-2B9859018FAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

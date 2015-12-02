@@ -1,0 +1,242 @@
+﻿@model Bru2o.Models.ViewModels.ProfileData
+
+<fieldset>
+    <div class="form-group">
+        <h2>Create a New Water Profile</h2>
+        <label class="control-label" for="focusedInput">Title</label>
+        @Html.EditorFor(model => model.WaterProfile.Title, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-horizontal">
+        <hr />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(x => x.WaterProfile.ID)
+        @Html.HiddenFor(x => x.WaterProfile.UserID)
+        @Html.HiddenFor(x => x.WaterProfile.CreateDate)
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Starting Water Profile (ppm = mg/L)</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;">Calcium (Ca)</th>
+                            <th style="text-align:center;">Magnesium (Mg)</th>
+                            <th style="text-align:center;">Sodium (Na)</th>
+                            <th style="text-align:center;">Chloride (Cl)</th>
+                            <th style="text-align:center;">Sulfate (SO<sub>4</sub>)</th>
+                            <th style="text-align:center;">Bicarbonate (HCO<sub>3</sub>)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Html.EditorFor(model => model.WaterProfile.StartingCalcium, new { htmlAttributes = new { @class = "form-control", id = "startCalcium", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.StartingMagnesium, new { htmlAttributes = new { @class = "form-control", id = "startMagnesium", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.StartingSodium, new { htmlAttributes = new { @class = "form-control", id = "startSodium", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.StartingChloride, new { htmlAttributes = new { @class = "form-control", id = "startChloride", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.StartingSulfate, new { htmlAttributes = new { @class = "form-control", id = "startSulfate", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.StartingAlkalinity, new { htmlAttributes = new { @class = "form-control", id = "startAlkalinity", onchange = "updateValues()" } })</td>
+                        </tr>
+                    </tbody>
+                </table>
+                @Html.ValidationMessageFor(model => model.WaterProfile.StartingCalcium, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.WaterProfile.StartingMagnesium, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.WaterProfile.StartingSodium, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.WaterProfile.StartingChloride, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.WaterProfile.StartingSulfate, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.WaterProfile.StartingAlkalinity, "", new { @class = "text-danger" })
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="20%"></th>
+                            <th width="40%">Mash Water</th>
+                            <th width="40%">Sparge Water</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center; vertical-align:middle;">Volume (galllons)</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.GallonsMashWater, new { htmlAttributes = new { @class = "form-control", id = "mashGal", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.GallonsSpargeWater, new { htmlAttributes = new { @class = "form-control", id = "spargeGal", onchange = "updateValues()" } })</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; vertical-align:middle;">% Distilled or RO</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.MashWaterDilution, new { htmlAttributes = new { @class = "form-control", id = "mashDilution", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.SpargeWaterDilution, new { htmlAttributes = new { @class = "form-control", id = "spargeDilution", onchange = "updateValues()" } })</td>
+                        </tr>
+                    </tbody>
+                </table>
+                @Html.ValidationMessageFor(model => model.WaterProfile.GallonsMashWater, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.WaterProfile.MashWaterDilution, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.WaterProfile.GallonsSpargeWater, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.WaterProfile.SpargeWaterDilution, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Grain Bill</h3>
+            </div>
+            <div class="panel-body">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="vertical-align:middle;text-align:center;">Grain Type</th>
+                                    <th style="vertical-align:middle;text-align:center;">Weight (lb)</th>
+                                    <th style="vertical-align:middle;text-align:center;">Color (°L)<br />(Crystal Malts Only)</th>
+                                    <th style="vertical-align:middle;text-align:center;">Distilled Water Mash pH<br /><input type="checkbox" id="manualPH" onchange="updateValues()" /> Manual pH Values</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.GrainInfos.Count(); i++)
+                                {
+                                    @Html.HiddenFor(x => Model.GrainInfos[i].ID)
+                                    @Html.HiddenFor(x => Model.GrainInfos[i].UserID)
+                                    @Html.HiddenFor(x => Model.GrainInfos[i].WaterProfileID)
+                                    <tr>
+                                        <td>@Html.DropDownListFor(x => Model.GrainInfos[i].GrainTypeID, new SelectList(Model.GrainTypes, "ID", "Name", Model.GrainInfos[i].GrainTypeID), new { @class = "form-control", id = "grainType" + i, onchange = "updateValues()" })</td>
+                                        <td>@Html.EditorFor(x => Model.GrainInfos[i].Weight, new { htmlAttributes = new { @class = "form-control", id = "grainWeight" + i, onchange = "updateValues()" } })</td>
+                                        <td>@Html.EditorFor(x => Model.GrainInfos[i].Color, new { htmlAttributes = new { @class = "form-control", id = "grainColor" + i, onchange = "updateValues()" } })</td>
+                                        <td>@Html.EditorFor(x => Model.GrainInfos[i].MashPH, new { htmlAttributes = new { @class = "form-control", id = "grainMash" + i, onchange = "updateValues()" } })</td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:right;">Total Grain Weight</td>
+                                    <td style="vertical-align:middle;text-align:center;" id="totalWeight"></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:right;">Mash Thickness</td>
+                                    <td style="vertical-align:middle;text-align:center;" id="totalThickness"></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel  panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Adjust Mash pH Down</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="20%"></th>
+                            <th width="40%">Acidulated Malt (oz)</th>
+                            <th width="40%">Lactic Acid (ml)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.AcidulatedMalt, new { htmlAttributes = new { @class = "form-control", id = "acidMalt", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.LacticAcid, new { htmlAttributes = new { @class = "form-control", id = "lacticAcid", onchange = "updateValues()" } })</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr />
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th style="text-align:center;">Gypsum (CaSO<sub>4</sub>)</th>
+                            <th style="text-align:center;">Calcium Chloride (CaCL<sub>2</sub>)</th>
+                            <th style="text-align:center;">Epsom Salt (MgSO<sub>4</sub>)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center; vertical-align:middle;">Mash Water Additions (grams)</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.Gypsum, new { htmlAttributes = new { @class = "form-control", id = "gypsum", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.CalciumChloride, new { htmlAttributes = new { @class = "form-control", id = "calciumChloride", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.EpsomSalt, new { htmlAttributes = new { @class = "form-control", id = "epsomSalt", onchange = "updateValues()" } })</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; vertical-align:middle;">Sparge Water Additions (grams)</td>
+                            <td style="text-align:center; vertical-align:middle;" id="spargeGypsum"></td>
+                            <td style="text-align:center; vertical-align:middle;" id="spargeCalciumChloride"></td>
+                            <td style="text-align:center; vertical-align:middle;" id="spargeEpsomSalt"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                @Html.ValidationMessageFor(model => model.WaterProfile.Gypsum, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.WaterProfile.CalciumChloride, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.WaterProfile.EpsomSalt, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.WaterProfile.AcidulatedMalt, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.WaterProfile.LacticAcid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="panel  panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Adjust Mash pH Up</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th style="text-align:center;">Slaked Lime (Ca(OH)<sub>2</sub>)</th>
+                            <th style="text-align:center;">Baking Soda (NaHCO<sub>3</sub>)</th>
+                            <th style="text-align:center;">
+                                <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="right"
+                                        data-content="Calculations for chalk's true affect on pH are very complex and may require an acid to fully dissolve.
+                                                                        This calculation uses half of chalk's full potential based on experimental data without acid addition. Results may vary."
+                                        data-original-title="" title="">
+                                    Chalk (CaCO<sub>3</sub>)
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center; vertical-align:middle;">Mash Water Additions (grams)</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.SlakedLime, new { htmlAttributes = new { @class = "form-control", id = "slakedLime", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.BakingSoda, new { htmlAttributes = new { @class = "form-control", id = "bakingSoda", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.Chalk, new { htmlAttributes = new { @class = "form-control", id = "chalk", onchange = "updateValues()" } })</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; vertical-align:middle;">Sparge Water Additions (grams)</td>
+                            <td style="text-align:center; vertical-align:middle;" id="spargeSlakedLime"></td>
+                            <td style="text-align:center; vertical-align:middle;" id="spargeBakingSoda"></td>
+                            <td style="text-align:center; vertical-align:middle;" id="spargeChalk"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                @Html.ValidationMessageFor(model => model.WaterProfile.SlakedLime, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.WaterProfile.BakingSoda, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.WaterProfile.Chalk, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="container">
+            <div class="navbar-header" style="padding-top:20px;">
+                Water Profile
+            </div>
+            <div class="nav navbar-nav navbar-right" style="padding-top:20px;">
+                PH
+            </div>
+        </div>
+    </div>
+
+</fieldset>

@@ -1,0 +1,194 @@
+﻿@model Bru2o.Models.WaterProfile
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>WaterProfile</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartingCalcium)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartingCalcium)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartingMagnesium)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartingMagnesium)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartingSodium)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartingSodium)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartingChloride)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartingChloride)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartingSulfate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartingSulfate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartingAlkalinity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartingAlkalinity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GallonsMashWater)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GallonsMashWater)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MashWaterDilution)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MashWaterDilution)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GallonsSpargeWater)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GallonsSpargeWater)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpargeWaterDilution)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpargeWaterDilution)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gypsum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gypsum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CalciumChloride)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CalciumChloride)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EpsomSalt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EpsomSalt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AcidulatedMalt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AcidulatedMalt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LacticAcid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LacticAcid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SlakedLime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SlakedLime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BakingSoda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BakingSoda)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Chalk)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Chalk)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifyDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifyDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
