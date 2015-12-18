@@ -36,6 +36,7 @@ namespace Bru2o.Models.Mapping
             this.Property(t => t.SlakedLime).HasColumnName("SlakedLime");
             this.Property(t => t.BakingSoda).HasColumnName("BakingSoda");
             this.Property(t => t.Chalk).HasColumnName("Chalk");
+            this.Property(t => t.ManualPH).HasColumnName("ManualPH");
             this.Property(t => t.CreateDate).HasColumnName("CreateDate");
             this.Property(t => t.ModifyDate).HasColumnName("ModifyDate");
         }

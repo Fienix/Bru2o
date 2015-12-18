@@ -33,12 +33,12 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>@Html.EditorFor(model => model.WaterProfile.StartingCalcium, new { htmlAttributes = new { @class = "form-control", id = "startCalcium", onchange = "updateValues()" } })</td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.StartingMagnesium, new { htmlAttributes = new { @class = "form-control", id = "startMagnesium", onchange = "updateValues()" } })</td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.StartingSodium, new { htmlAttributes = new { @class = "form-control", id = "startSodium", onchange = "updateValues()" } })</td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.StartingChloride, new { htmlAttributes = new { @class = "form-control", id = "startChloride", onchange = "updateValues()" } })</td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.StartingSulfate, new { htmlAttributes = new { @class = "form-control", id = "startSulfate", onchange = "updateValues()" } })</td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.StartingAlkalinity, new { htmlAttributes = new { @class = "form-control", id = "startAlkalinity", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.StartingCalcium, new { htmlAttributes = new { @class = "form-control", id = "startCalcium", onkeyup = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.StartingMagnesium, new { htmlAttributes = new { @class = "form-control", id = "startMagnesium", onkeyup = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.StartingSodium, new { htmlAttributes = new { @class = "form-control", id = "startSodium", onkeyup = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.StartingChloride, new { htmlAttributes = new { @class = "form-control", id = "startChloride", onkeyup = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.StartingSulfate, new { htmlAttributes = new { @class = "form-control", id = "startSulfate", onkeyup = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.StartingAlkalinity, new { htmlAttributes = new { @class = "form-control", id = "startAlkalinity", onkeyup = "updateValues()" } })</td>
                         </tr>
                     </tbody>
                 </table>
@@ -60,13 +60,13 @@
                     <tbody>
                         <tr>
                             <td style="text-align:center; vertical-align:middle;">Volume (galllons)</td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.GallonsMashWater, new { htmlAttributes = new { @class = "form-control", id = "mashGal", onchange = "updateValues()" } })</td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.GallonsSpargeWater, new { htmlAttributes = new { @class = "form-control", id = "spargeGal", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.GallonsMashWater, new { htmlAttributes = new { @class = "form-control", id = "mashGal", onkeyup = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.GallonsSpargeWater, new { htmlAttributes = new { @class = "form-control", id = "spargeGal", onkeyup = "updateValues()" } })</td>
                         </tr>
                         <tr>
                             <td style="text-align:center; vertical-align:middle;">% Distilled or RO</td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.MashWaterDilution, new { htmlAttributes = new { @class = "form-control", id = "mashDilution", onchange = "updateValues()" } })</td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.SpargeWaterDilution, new { htmlAttributes = new { @class = "form-control", id = "spargeDilution", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.MashWaterDilution, new { htmlAttributes = new { @class = "form-control", id = "mashDilution", onkeyup = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.SpargeWaterDilution, new { htmlAttributes = new { @class = "form-control", id = "spargeDilution", onkeyup = "updateValues()" } })</td>
                         </tr>
                     </tbody>
                 </table>
@@ -90,7 +90,7 @@
                                     <th style="vertical-align:middle;text-align:center;">Grain Type</th>
                                     <th style="vertical-align:middle;text-align:center;">Weight (lb)</th>
                                     <th style="vertical-align:middle;text-align:center;">Color (°L)<br />(Crystal Malts Only)</th>
-                                    <th style="vertical-align:middle;text-align:center;">Distilled Water Mash pH<br /><input type="checkbox" id="manualPH" onchange="updateValues()" /> Manual pH Values</th>
+                                    <th style="vertical-align:middle;text-align:center;">Distilled Water Mash pH<br />@Html.EditorFor(x => x.WaterProfile.ManualPH, new { htmlAttributes =  new { id = "manualPH", onchange = "updateValues()" } }) Manual pH Values</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -101,9 +101,9 @@
                                     @Html.HiddenFor(x => Model.GrainInfos[i].WaterProfileID)
                                     <tr>
                                         <td>@Html.DropDownListFor(x => Model.GrainInfos[i].GrainTypeID, new SelectList(Model.GrainTypes, "ID", "Name", Model.GrainInfos[i].GrainTypeID), new { @class = "form-control", id = "grainType" + i, onchange = "updateValues()" })</td>
-                                        <td>@Html.EditorFor(x => Model.GrainInfos[i].Weight, new { htmlAttributes = new { @class = "form-control", id = "grainWeight" + i, onchange = "updateValues()" } })</td>
-                                        <td>@Html.EditorFor(x => Model.GrainInfos[i].Color, new { htmlAttributes = new { @class = "form-control", id = "grainColor" + i, onchange = "updateValues()" } })</td>
-                                        <td>@Html.EditorFor(x => Model.GrainInfos[i].MashPH, new { htmlAttributes = new { @class = "form-control", id = "grainMash" + i, onchange = "updateValues()" } })</td>
+                                        <td>@Html.EditorFor(x => Model.GrainInfos[i].Weight, new { htmlAttributes = new { @class = "form-control", id = "grainWeight" + i, onkeyup = "updateValues()" } })</td>
+                                        <td>@Html.EditorFor(x => Model.GrainInfos[i].Color, new { htmlAttributes = new { @class = "form-control", id = "grainColor" + i, onkeyup = "updateValues()" } })</td>
+                                        <td>@Html.EditorFor(x => Model.GrainInfos[i].MashPH, new { htmlAttributes = new { @class = "form-control", id = "grainMash" + i, onkeyup = "updateValues()" } })</td>
                                     </tr>
                                 }
                                 <tr>
@@ -141,8 +141,8 @@
                     <tbody>
                         <tr>
                             <td></td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.AcidulatedMalt, new { htmlAttributes = new { @class = "form-control", id = "acidMalt", onchange = "updateValues()" } })</td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.LacticAcid, new { htmlAttributes = new { @class = "form-control", id = "lacticAcid", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.AcidulatedMalt, new { htmlAttributes = new { @class = "form-control", id = "acidMalt", onkeyup = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.LacticAcid, new { htmlAttributes = new { @class = "form-control", id = "lacticAcid", onkeyup = "updateValues()" } })</td>
                         </tr>
                     </tbody>
                 </table>
@@ -159,9 +159,9 @@
                     <tbody>
                         <tr>
                             <td style="text-align:center; vertical-align:middle;">Mash Water Additions (grams)</td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.Gypsum, new { htmlAttributes = new { @class = "form-control", id = "gypsum", onchange = "updateValues()" } })</td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.CalciumChloride, new { htmlAttributes = new { @class = "form-control", id = "calciumChloride", onchange = "updateValues()" } })</td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.EpsomSalt, new { htmlAttributes = new { @class = "form-control", id = "epsomSalt", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.Gypsum, new { htmlAttributes = new { @class = "form-control", id = "gypsum", onkeyup = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.CalciumChloride, new { htmlAttributes = new { @class = "form-control", id = "calciumChloride", onkeyup = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.EpsomSalt, new { htmlAttributes = new { @class = "form-control", id = "epsomSalt", onkeyup = "updateValues()" } })</td>
                         </tr>
                         <tr>
                             <td style="text-align:center; vertical-align:middle;">Sparge Water Additions (grams)</td>
@@ -203,9 +203,9 @@
                     <tbody>
                         <tr>
                             <td style="text-align:center; vertical-align:middle;">Mash Water Additions (grams)</td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.SlakedLime, new { htmlAttributes = new { @class = "form-control", id = "slakedLime", onchange = "updateValues()" } })</td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.BakingSoda, new { htmlAttributes = new { @class = "form-control", id = "bakingSoda", onchange = "updateValues()" } })</td>
-                            <td>@Html.EditorFor(model => model.WaterProfile.Chalk, new { htmlAttributes = new { @class = "form-control", id = "chalk", onchange = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.SlakedLime, new { htmlAttributes = new { @class = "form-control", id = "slakedLime", onkeyup = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.BakingSoda, new { htmlAttributes = new { @class = "form-control", id = "bakingSoda", onkeyup = "updateValues()" } })</td>
+                            <td>@Html.EditorFor(model => model.WaterProfile.Chalk, new { htmlAttributes = new { @class = "form-control", id = "chalk", onkeyup = "updateValues()" } })</td>
                         </tr>
                         <tr>
                             <td style="text-align:center; vertical-align:middle;">Sparge Water Additions (grams)</td>
@@ -230,29 +230,35 @@
 
     <div class="navbar navbar-inverse navbar-fixed-bottom">
         <div class="container">
-            <div class="navbar-header" style="padding-top:20px;">
-                Alkalinity (Effective: <span id="eAlkalinity"></span> | Residual: <span id="rAlkalinity"></span>)
-                <table>
+                <div class="col-md-3" style="padding-top: 10px;">
+                    <b>Alkalinity</b><br/>
+                    Effective: <span id="eAlkalinity"></span> | Residual: <span id="rAlkalinity"></span>
+                </div>
+            <div class="col-md-6">
+                <table style="margin: 0 auto; margin-bottom: 10px;">
                     <tr>
-                        <th>Clacium</th>
-                        <th>Magnesium</th>
-                        <th>Sodium</th>
-                        <th>Chloride</th>
-                        <th>Sulfate</th>
-                        <th>Chloride/Sulfate Ratio</th>
+                        <th style="padding: 10px;">Clacium</th>
+                        <th style="padding: 10px;">Magnesium</th>
+                        <th style="padding: 10px;">Sodium</th>
+                        <th style="padding: 10px;">Chloride</th>
+                        <th style="padding: 10px;">Sulfate</th>
                     </tr>
                     <tr>
-                        <td id="calcium"></td>
-                        <td id="magnesium"></td>
-                        <td id="sodium"></td>
-                        <td id="chloride"></td>
-                        <td id="sulfate"></td>
-                        <td id="clsoRatio"></td>
+                        <td style="text-align: center; vertical-align: middle;" id="calcium"></td>
+                        <td style="text-align: center; vertical-align: middle;" id="magnesium"></td>
+                        <td style="text-align: center; vertical-align: middle;" id="sodium"></td>
+                        <td style="text-align: center; vertical-align: middle;" id="chloride"></td>
+                        <td style="text-align: center; vertical-align: middle;" id="sulfate"></td>
                     </tr>
                 </table>
             </div>
-            <div class="nav navbar-nav navbar-right" style="padding-top:20px;">
-                PH
+            <div class="col-md-2" style="padding-top: 10px;">
+                <b>Chloride/Sulfate Ratio</b><br />
+                <span id="clsoRatio"></span>
+            </div>
+            <div class="col-md-1" style="padding-top: 10px;">
+                <b>pH</b><br/>
+                <span id="totalPH"></span>
             </div>
         </div>
     </div>

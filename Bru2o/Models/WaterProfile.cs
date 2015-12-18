@@ -39,6 +39,7 @@ namespace Bru2o.Models
         public decimal SlakedLime { get; set; }
         public decimal BakingSoda { get; set; }
         public decimal Chalk { get; set; }
+        public bool ManualPH { get; set; }  
         public DateTime CreateDate { get; set; }
         public DateTime ModifyDate { get; set; }
 

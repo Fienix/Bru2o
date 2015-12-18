@@ -112,7 +112,7 @@ namespace Bru2o.Controllers
             wp.StartingSodium = data.WaterProfile.StartingSodium;
             wp.StartingSulfate = data.WaterProfile.StartingSulfate;
             wp.Title = data.WaterProfile.Title;
-            db.Entry(wp).State = EntityState.Modified;
+            wp.ManualPH = data.WaterProfile.ManualPH;
         }
 
         private void ProcessGrainInfo(ProfileData data, WaterProfile wp)
@@ -126,7 +126,7 @@ namespace Bru2o.Controllers
                     existingG.GrainTypeID = g.GrainTypeID;
                     existingG.Color = g.Color;
                     existingG.MashPH = g.MashPH;
-                    db.Entry(existingG).State = EntityState.Modified;
+                    existingG.Weight = g.Weight;
                 }
                 else if (existingG == null && g.GrainTypeID > 1) { g.ID = -1; wp.GrainInfos.Add(g); }
             }
