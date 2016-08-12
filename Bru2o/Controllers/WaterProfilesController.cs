@@ -53,6 +53,8 @@ namespace Bru2o.Controllers
             {
                 data.WaterProfile.UserID = ah.UserID;
                 foreach (GrainInfo g in data.GrainInfos) { if (g.GrainTypeID > 1) { data.WaterProfile.GrainInfos.Add(g); } }
+                data.CalcStats.WaterProfile = data.WaterProfile;
+                db.CalcStats.Add(data.CalcStats);
                 db.WaterProfiles.Add(data.WaterProfile);
                 db.SaveChanges();
                 return RedirectToAction("Index").Success("Successfully created " + data.WaterProfile.Title + ".");
@@ -83,12 +85,22 @@ namespace Bru2o.Controllers
         public ActionResult Edit(ProfileData data)
         {
             WaterProfile wp = db.WaterProfiles.Where(x => x.UserID == ah.UserID && x.ID == data.WaterProfile.ID).SingleOrDefault();
+            CalcStats cs = db.CalcStats.Where(x => x.WaterProfileID == wp.ID).SingleOrDefault();
+            if (cs == null)
+            {
+                cs = new CalcStats();
+                cs.WaterProfileID = wp.ID;
+                cs.UserID = ah.UserID;
+                cs.ID = -1;
+                db.CalcStats.Add(cs);
+            }
 
             List<ModelError> allErrors = new List<ModelError>();
             if (ModelState.IsValid)
             {
                 ProcessWaterProfile(data, wp);
                 ProcessGrainInfo(data, wp);
+                ProcessCalcStats(data, cs);
                 db.SaveChanges();
                 return RedirectToAction("Index").Success("Successfully modified " + data.WaterProfile.Title + ".");
             }
@@ -121,6 +133,27 @@ namespace Bru2o.Controllers
             wp.StartingSulfate = data.WaterProfile.StartingSulfate;
             wp.Title = data.WaterProfile.Title;
             wp.ManualPH = data.WaterProfile.ManualPH;
+        }
+
+        private void ProcessCalcStats(ProfileData data, CalcStats cs)
+        {
+            cs.pH = data.CalcStats.pH;
+            cs.CSRatio = data.CalcStats.CSRatio;
+            cs.EffectiveAlk = data.CalcStats.EffectiveAlk;
+            cs.ResidualAlk = data.CalcStats.ResidualAlk;
+            cs.Calcium = data.CalcStats.Calcium;
+            cs.Magnesium = data.CalcStats.Magnesium;
+            cs.Sodium = data.CalcStats.Sodium;
+            cs.Chloride = data.CalcStats.Chloride;
+            cs.Sulfate = data.CalcStats.Sulfate;
+            cs.SpargeGypsum = data.CalcStats.SpargeGypsum;
+            cs.SpargeCalciumChloride = data.CalcStats.SpargeCalciumChloride;
+            cs.SpargeEpsomSalt = data.CalcStats.SpargeEpsomSalt;
+            cs.SpargeSlakedLime = data.CalcStats.SpargeSlakedLime;
+            cs.SpargeBakingSoda = data.CalcStats.SpargeBakingSoda;
+            cs.SpargeChalk = data.CalcStats.SpargeChalk;
+            cs.TotalGrainWeight = data.CalcStats.TotalGrainWeight;
+            cs.MashThickness = data.CalcStats.MashThickness;
         }
 
         private void ProcessGrainInfo(ProfileData data, WaterProfile wp)

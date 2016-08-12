@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace Bru2o.Models
 {
@@ -12,6 +9,7 @@ namespace Bru2o.Models
         public WaterProfile()
         {
             this.GrainInfos = new HashSet<GrainInfo>();
+            this.CalcStats = new HashSet<CalcStats>();
         }
 
         [Key]
@@ -44,5 +42,6 @@ namespace Bru2o.Models
         public DateTime ModifyDate { get; set; }
 
         public virtual ICollection<GrainInfo> GrainInfos { get; set; }
+        public virtual ICollection<CalcStats> CalcStats { get; set; }
     }
 }

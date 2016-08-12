@@ -22,12 +22,14 @@ namespace Bru2o.Models
         public DbSet<WaterProfile> WaterProfiles { get; set; }
         public DbSet<GrainInfo> GrainInfos { get; set; }
         public DbSet<GrainType> GrainTypes { get; set; }
+        public DbSet<CalcStats> CalcStats { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new WaterProfileMap());
             modelBuilder.Configurations.Add(new GrainInfoMap());
             modelBuilder.Configurations.Add(new GrainTypeMap());
+            modelBuilder.Configurations.Add(new CalcStatsMap());
         }
 
         public override int SaveChanges()
@@ -63,7 +65,33 @@ namespace Bru2o.Models
                 }
             }
 
-            return base.SaveChanges();
+            int i = SaveChangesBase();
+
+            return i;
+        }
+
+        public int SaveChangesBase()
+        {
+            int i = 0;
+            try
+            {
+                i = base.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        System.Diagnostics.Debug.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+            return i;
         }
     }
 }

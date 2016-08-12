@@ -80,41 +80,55 @@
             //Do weight and thickness calculations
             var totalGrainWeight = parseFloat(grainWeight * 100 / 100).toFixed(2);
             document.getElementById("totalWeight").innerHTML = totalGrainWeight;
-            document.getElementById("totalThickness").innerHTML = parseFloat((mashGal * 4 / totalGrainWeight) * 100 / 100).toFixed(2) + " qt/lb";
+            document.getElementById("CalcStats_TotalGrainWeight").value = totalGrainWeight;
+            document.getElementById("totalThickness").innerHTML = parseFloat((mashGal * 4 / totalGrainWeight) * 100 / 100 || 0).toFixed(2) + " qt/lb";
+            document.getElementById("CalcStats_MashThickness").value = parseFloat((mashGal * 4 / totalGrainWeight) * 100 / 100 || 0).toFixed(2);
 
             //Sparge additions
             var spargeGypsumVal = gypsum / mashGal * spargeGal;
-            spargeGypsumVal = Math.round(spargeGypsumVal * 100) / 100;
+            spargeGypsumVal = Math.round(spargeGypsumVal * 100) / 100 || 0;
             document.getElementById("spargeGypsum").innerHTML = spargeGypsumVal;
-            var spargeCalciumChlorideVal = calciumChloride / mashGal * spargeGal;
+            document.getElementById("CalcStats_SpargeGypsum").value = parseFloat(spargeGypsumVal).toFixed(2);
+            var spargeCalciumChlorideVal = calciumChloride / mashGal * spargeGal || 0;
             spargeCalciumChlorideVal = Math.round(spargeCalciumChlorideVal * 100) / 100;
             document.getElementById("spargeCalciumChloride").innerHTML = spargeCalciumChlorideVal;
-            var spargeEpsomSaltVal = epsomSalt / mashGal * spargeGal;
+            document.getElementById("CalcStats_SpargeCalciumChloride").value = parseFloat(spargeCalciumChlorideVal).toFixed(2);
+            var spargeEpsomSaltVal = epsomSalt / mashGal * spargeGal || 0;
             spargeEpsomSaltVal = Math.round(spargeEpsomSaltVal * 100) / 100;
             document.getElementById("spargeEpsomSalt").innerHTML = spargeEpsomSaltVal;
-            var spargeSlakedLimeVal = slakedLime / mashGal * spargeGal;
+            document.getElementById("CalcStats_SpargeEpsomSalt").value = parseFloat(spargeEpsomSaltVal).toFixed(2);
+            var spargeSlakedLimeVal = slakedLime / mashGal * spargeGal || 0;
             spargeSlakedLimeVal = Math.round(spargeSlakedLimeVal * 100) / 100;
             document.getElementById("spargeSlakedLime").innerHTML = spargeSlakedLimeVal;
-            var spargeBakingSodaVal = bakingSoda / mashGal * spargeGal;
+            document.getElementById("CalcStats_SpargeSlakedLime").value = parseFloat(spargeSlakedLimeVal).toFixed(2);
+            var spargeBakingSodaVal = bakingSoda / mashGal * spargeGal || 0;
             spargeBakingSodaVal = Math.round(spargeBakingSodaVal * 100) / 100;
             document.getElementById("spargeBakingSoda").innerHTML = spargeBakingSodaVal;
-            var spargeChalkVal = chalk / mashGal * spargeGal;
+            document.getElementById("CalcStats_SpargeBakingSoda").value = parseFloat(spargeBakingSodaVal).toFixed(2);
+            var spargeChalkVal = chalk / mashGal * spargeGal || 0;
             spargeChalkVal = Math.round(spargeChalkVal * 100) / 100;
             document.getElementById("spargeChalk").innerHTML = spargeChalkVal;
+            document.getElementById("CalcStats_SpargeChalk").value = parseFloat(spargeChalkVal).toFixed(2);
 
             //Calculate Mash Water Profile
-            var calcium = (1 - (mashDilution / 100)) * startCalcium + (chalk * 105.89 + gypsum * 60 + calciumChloride * 72 + slakedLime * 143) / mashGal;
+            var calcium = (1 - (mashDilution / 100)) * startCalcium + (chalk * 105.89 + gypsum * 60 + calciumChloride * 72 + slakedLime * 143) / mashGal || 0;
             document.getElementById("calcium").innerHTML = calcium.toFixed(0);
-            var magnesium = (1 - (mashDilution / 100)) * startMagnesium + epsomSalt * 24.6 / mashGal;
+            document.getElementById("CalcStats_Calcium").value = calcium.toFixed(0);
+            var magnesium = (1 - (mashDilution / 100)) * startMagnesium + epsomSalt * 24.6 / mashGal || 0;
             document.getElementById("magnesium").innerHTML = magnesium.toFixed(0);
-            var sodium = (1 - (mashDilution / 100)) * startSodium + bakingSoda * 72.3 / mashGal;
+            document.getElementById("CalcStats_Magnesium").value = magnesium.toFixed(0);
+            var sodium = (1 - (mashDilution / 100)) * startSodium + bakingSoda * 72.3 / mashGal || 0;
             document.getElementById("sodium").innerHTML = sodium.toFixed(0);
-            var chloride = (1 - (mashDilution / 100)) * startChloride + calciumChloride * 127.47 / mashGal;
+            document.getElementById("CalcStats_Sodium").value = sodium.toFixed(0);
+            var chloride = (1 - (mashDilution / 100)) * startChloride + calciumChloride * 127.47 / mashGal || 0;
             document.getElementById("chloride").innerHTML = chloride.toFixed(0);
-            var sulfate = (1 - (mashDilution / 100)) * startSulfate + (gypsum * 147.4 + epsomSalt * 103) / mashGal;
+            document.getElementById("CalcStats_Chloride").value = chloride.toFixed(0);
+            var sulfate = (1 - (mashDilution / 100)) * startSulfate + (gypsum * 147.4 + epsomSalt * 103) / mashGal || 0;
             document.getElementById("sulfate").innerHTML = sulfate.toFixed(0);
-            var clsoRatio = chloride / sulfate;
+            document.getElementById("CalcStats_Sulfate").value = sulfate.toFixed(0);
+            var clsoRatio = chloride / sulfate || 0;
             document.getElementById("clsoRatio").innerHTML = clsoRatio.toFixed(2);
+            document.getElementById("CalcStats_CSRatio").value = clsoRatio.toFixed(2);
 
             //TODO: Calculate Mash + Sparge Water Profile
 
@@ -122,12 +136,14 @@
             var lacticAcidContent = 0.88;
             var maltAcidContent= .02;
             var eAlkalinity = (1 - (mashDilution / 100)) * startAlkalinity * (50 / 61) + (chalk * 130 + bakingSoda * 157 - 176.1 * lacticAcid * lacticAcidContent * 2 - 4160.4 *
-                maltAcidContent * acidMalt * 2.5 + slakedLime * 357) / mashGal;
+                maltAcidContent * acidMalt * 2.5 + slakedLime * 357) / mashGal || 0;
             document.getElementById("eAlkalinity").innerHTML = eAlkalinity.toFixed(0);
+            document.getElementById("CalcStats_EffectiveAlk").value = eAlkalinity.toFixed(0);
 
             //Calculate Residual Alkalinity
-            var rAlkalinity = eAlkalinity - ((calcium / 1.4) + magnesium / 1.7);
+            var rAlkalinity = eAlkalinity - ((calcium / 1.4) + magnesium / 1.7) || 0;
             document.getElementById("rAlkalinity").innerHTML = rAlkalinity.toFixed(0);
+            document.getElementById("CalcStats_ResidualAlk").value = rAlkalinity.toFixed(0);
 
             //Calculate Grain pH
             if (!document.getElementById("manualPH").checked) {
@@ -151,8 +167,9 @@
                 var grainPh = document.getElementById("grainMash" + [i]).value;
                 totalMashPh += grainObjects[i].weight * grainPh;
             }
-            totalMashPh = totalMashPh / totalGrainWeight + (0.1085 * mashGal / totalGrainWeight + 0.013) * rAlkalinity / 50;
+            totalMashPh = totalMashPh / totalGrainWeight + (0.1085 * mashGal / totalGrainWeight + 0.013) * rAlkalinity / 50 || 0;
             document.getElementById("totalPH").innerHTML = totalMashPh.toFixed(2);
+            document.getElementById("CalcStats_pH").value = totalMashPh.toFixed(2);
         }
     });
 }

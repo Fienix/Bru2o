@@ -13,11 +13,15 @@ namespace Bru2o.Models.ViewModels
         public WaterProfile WaterProfile { get; set; }
         public List<GrainInfo> GrainInfos { get; set; }
         public List<GrainType> GrainTypes { get; set; }
+        public CalcStats CalcStats { get; set; }
 
         public ProfileData() : base() 
         {
             this.WaterProfile = new WaterProfile();
             this.WaterProfile.UserID = ah.UserID;
+            this.CalcStats = new CalcStats();
+            this.CalcStats.UserID = ah.UserID;
+            this.CalcStats.WaterProfileID = this.WaterProfile.ID;
             this.GrainInfos = new List<GrainInfo>();
             for (int i = 0;i < 8;i++) { this.GrainInfos.Add(new GrainInfo(ah.UserID, this.WaterProfile.ID)); }
             this.GrainTypes = db.GrainTypes.ToList();
@@ -26,6 +30,7 @@ namespace Bru2o.Models.ViewModels
         public ProfileData(int waterProfileID)
         {
             this.WaterProfile = db.WaterProfiles.Where(x => x.ID == waterProfileID && x.UserID == ah.UserID).SingleOrDefault();
+            this.CalcStats = db.CalcStats.Where(x => x.WaterProfileID == this.WaterProfile.ID).SingleOrDefault();
 
             if (WaterProfile != null)
             {
