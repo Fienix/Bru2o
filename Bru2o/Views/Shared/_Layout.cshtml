@@ -9,6 +9,11 @@
 
 </head>
 <body>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -28,15 +33,14 @@
         </div>
     </div>
     <div class="container body-content">
+
+        @Html.Partial("_Flash")
+
         @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Bru2o</p>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>

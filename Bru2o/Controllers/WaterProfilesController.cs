@@ -13,14 +13,12 @@ using Bru2o.Helpers;
 namespace Bru2o.Controllers
 {
     [Authorize]
-    public class WaterProfilesController : Controller
+    public class WaterProfilesController : BaseController
     {
-        private Bru2oDBContext db = new Bru2oDBContext();
-
         // GET: WaterProfiles
         public ActionResult Index()
         {
-            return View(db.WaterProfiles.Where(x => x.UserID == AppHelper.UserID).ToList());
+            return View(db.WaterProfiles.Where(x => x.UserID == ah.UserID).ToList());
         }
 
         // GET: WaterProfiles/Details/5
@@ -30,7 +28,7 @@ namespace Bru2o.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            WaterProfile waterProfile = db.WaterProfiles.Where(x => x.UserID == AppHelper.UserID && x.ID == id).SingleOrDefault();
+            WaterProfile waterProfile = db.WaterProfiles.Where(x => x.UserID == ah.UserID && x.ID == id).SingleOrDefault();
             if (waterProfile == null)
             {
                 return HttpNotFound();
@@ -50,16 +48,20 @@ namespace Bru2o.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ProfileData data)
         {
+            List<ModelError> allErrors = new List<ModelError>();
             if (ModelState.IsValid)
             {
-                data.WaterProfile.UserID = AppHelper.UserID;
+                data.WaterProfile.UserID = ah.UserID;
                 foreach (GrainInfo g in data.GrainInfos) { if (g.GrainTypeID > 1) { data.WaterProfile.GrainInfos.Add(g); } }
                 db.WaterProfiles.Add(data.WaterProfile);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index").Success("Successfully created " + data.WaterProfile.Title + ".");
             }
-
-            return View(data);
+            else
+            {
+                allErrors = ModelState.Values.SelectMany(v => v.Errors).ToList();
+                return View(data).Error(ah.GetFlashErrorString(allErrors));
+            }
         }
         #endregion
 
@@ -80,16 +82,21 @@ namespace Bru2o.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ProfileData data)
         {
-            WaterProfile wp = db.WaterProfiles.Where(x => x.UserID == AppHelper.UserID && x.ID == data.WaterProfile.ID).SingleOrDefault();
+            WaterProfile wp = db.WaterProfiles.Where(x => x.UserID == ah.UserID && x.ID == data.WaterProfile.ID).SingleOrDefault();
 
+            List<ModelError> allErrors = new List<ModelError>();
             if (ModelState.IsValid)
             {
                 ProcessWaterProfile(data, wp);
                 ProcessGrainInfo(data, wp);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index").Success("Successfully modified " + data.WaterProfile.Title + ".");
             }
-            return View(data);
+            else
+            {
+                allErrors = ModelState.Values.SelectMany(v => v.Errors).ToList();
+                return View(data).Error(ah.GetFlashErrorString(allErrors));
+            }
         }
 
         private void ProcessWaterProfile(ProfileData data, WaterProfile wp)
@@ -142,7 +149,7 @@ namespace Bru2o.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            WaterProfile waterProfile = db.WaterProfiles.Where(x => x.UserID == AppHelper.UserID && x.ID == id).SingleOrDefault();
+            WaterProfile waterProfile = db.WaterProfiles.Where(x => x.UserID == ah.UserID && x.ID == id).SingleOrDefault();
             if (waterProfile == null)
             {
                 return HttpNotFound();
@@ -155,10 +162,10 @@ namespace Bru2o.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            WaterProfile waterProfile = db.WaterProfiles.Where(x => x.UserID == AppHelper.UserID && x.ID == id).SingleOrDefault();
+            WaterProfile waterProfile = db.WaterProfiles.Where(x => x.UserID == ah.UserID && x.ID == id).SingleOrDefault();
             db.WaterProfiles.Remove(waterProfile);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index").Success("Successfully deleted " + waterProfile.Title + ".");
         }
         #endregion
 
