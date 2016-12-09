@@ -28,12 +28,12 @@ namespace Bru2o.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            WaterProfile waterProfile = db.WaterProfiles.Where(x => x.UserID == ah.UserID && x.ID == id).SingleOrDefault();
-            if (waterProfile == null)
+            ProfileData data = new ProfileData(id.Value);
+            if (data.WaterProfile == null)
             {
                 return HttpNotFound();
             }
-            return View(waterProfile);
+            return View(data);
         }
 
         #region Create

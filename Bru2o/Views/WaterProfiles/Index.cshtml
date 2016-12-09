@@ -4,33 +4,26 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Water Profiles</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="/WaterProfiles/Create" class="btn btn-primary">New Profile</a>
 </p>
 <table class="table">
     <tr>
-        <th>
-            Water Profile
-        </th>
-        <th>
-            Created
-        </th>
+        <th>Water Profile</th>
+        <th>Created (UTC)</th>
+        <th>Modified (UTC)</th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateDate)
-        </td>
+        <td><a href="/WaterProfiles/Details/@item.ID">@Html.DisplayFor(modelItem => item.Title)</a></td>
+        <td>@Html.DisplayFor(modelItem => item.CreateDate)</td>
+        <td>@Html.DisplayFor(modelItem => item.ModifyDate)</td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>

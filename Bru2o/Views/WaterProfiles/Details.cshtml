@@ -1,194 +1,213 @@
-﻿@model Bru2o.Models.WaterProfile
+﻿@model Bru2o.Models.ViewModels.ProfileData
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.WaterProfile.Title + " - Details";
 }
 
-<h2>Details</h2>
+<h2 style="color:#0ce3ac;">@Model.WaterProfile.Title</h2>
 
-<div>
-    <h4>WaterProfile</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserID)
-        </dt>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Mash Water</h3>
+        </div>
+        <div class="panel-body">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-lg-6">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="vertical-align:middle;text-align:center;">Water</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.GallonsMashWater Gallons</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.MashWaterDilution % RO Dilution</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-6">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="vertical-align:middle;text-align:right;">Addition</th>
+                                    <th style="vertical-align:middle;text-align:center;">Grams (g)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr> 
+                                    @if (Model.WaterProfile.Gypsum > 0)
+                                    {
+                                        <td style="vertical-align:middle;text-align:right;">Gypsum (CaSO<sub>4</sub>)</td>
+                                        <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.Gypsum</td>
+                                    }
+                                </tr>
+                                <tr>
+                                    @if (Model.WaterProfile.CalciumChloride > 0)
+                                    {
+                                        <td style="vertical-align:middle;text-align:right;">Calcium Chloride (CaCL<sub>2</sub>)</td>
+                                        <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.CalciumChloride</td>
+                                    }
+                                </tr>
+                                <tr>
+                                    @if (Model.WaterProfile.EpsomSalt > 0)
+                                    {
+                                        <td style="vertical-align:middle;text-align:right;">Epsom Salt (MgSO<sub>4</sub>)</td>
+                                        <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.EpsomSalt</td>
+                                    }
+                                </tr>
+                                <tr>
+                                    @if (Model.WaterProfile.SlakedLime > 0)
+                                    {
+                                        <td style="vertical-align:middle;text-align:right;">Slaked Lime (Ca(OH)<sub>2</sub>)</td>
+                                        <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.SlakedLime</td>
+                                    }
+                                </tr>
+                                <tr>
+                                    @if (Model.WaterProfile.BakingSoda > 0)
+                                    {
+                                        <td style="vertical-align:middle;text-align:right;">Baking Soda (NaHCO<sub>3</sub>)</td>
+                                        <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.BakingSoda</td>
+                                    }
+                                </tr>
+                                <tr>
+                                    @if (Model.WaterProfile.Chalk > 0)
+                                    {
+                                        <td style="vertical-align:middle;text-align:right;">Chalk (CaCO<sub>3</sub>)</td>
+                                        <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.Chalk</td>
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserID)
-        </dd>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Sparge Water</h3>
+        </div>
+        <div class="panel-body">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-lg-6">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="vertical-align:middle;text-align:center;">Water</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.GallonsSpargeWater Gallons</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.SpargeWaterDilution % RO Dilution</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-6">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="vertical-align:middle;text-align:right;">Addition</th>
+                                    <th style="vertical-align:middle;text-align:center;">Grams (g)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    @if (Model.CalcStats.SpargeGypsum > 0)
+                                    {
+                                        <td style="vertical-align:middle;text-align:right;">Gypsum (CaSO<sub>4</sub>)</td>
+                                        <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeGypsum</td>
+                                    }
+                                </tr>
+                                <tr>
+                                    @if (Model.CalcStats.SpargeCalciumChloride > 0)
+                                    {
+                                        <td style="vertical-align:middle;text-align:right;">Calcium Chloride (CaCL<sub>2</sub>)</td>
+                                        <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeCalciumChloride</td>
+                                    }
+                                </tr>
+                                <tr>
+                                    @if (Model.CalcStats.SpargeEpsomSalt > 0)
+                                    {
+                                        <td style="vertical-align:middle;text-align:right;">Epsom Salt (MgSO<sub>4</sub>)</td>
+                                        <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeEpsomSalt</td>
+                                    }
+                                </tr>
+                                <tr>
+                                    @if (Model.CalcStats.SpargeSlakedLime > 0)
+                                    {
+                                        <td style="vertical-align:middle;text-align:right;">Slaked Lime (Ca(OH)<sub>2</sub>)</td>
+                                        <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeSlakedLime</td>
+                                    }
+                                </tr>
+                                <tr>
+                                    @if (Model.CalcStats.SpargeBakingSoda > 0)
+                                    {
+                                        <td style="vertical-align:middle;text-align:right;">Baking Soda (NaHCO<sub>3</sub>)</td>
+                                        <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeBakingSoda</td>
+                                    }
+                                </tr>
+                                <tr>
+                                    @if (Model.CalcStats.SpargeChalk > 0)
+                                    {
+                                        <td style="vertical-align:middle;text-align:right;">Chalk (CaCO<sub>3</sub>)</td>
+                                        <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeChalk</td>
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StartingCalcium)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartingCalcium)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StartingMagnesium)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartingMagnesium)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StartingSodium)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartingSodium)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StartingChloride)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartingChloride)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StartingSulfate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartingSulfate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StartingAlkalinity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartingAlkalinity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GallonsMashWater)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GallonsMashWater)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MashWaterDilution)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MashWaterDilution)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GallonsSpargeWater)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GallonsSpargeWater)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SpargeWaterDilution)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SpargeWaterDilution)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Gypsum)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gypsum)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CalciumChloride)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CalciumChloride)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EpsomSalt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EpsomSalt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AcidulatedMalt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AcidulatedMalt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LacticAcid)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LacticAcid)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SlakedLime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SlakedLime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BakingSoda)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BakingSoda)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Chalk)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Chalk)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreateDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifyDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ModifyDate)
-        </dd>
-
-    </dl>
+    <div class="navbar navbar-inverse navbar-fixed-bottom">
+    <div class="container">
+        <div class="col-md-3" style="padding-top: 10px;">
+            <b>Alkalinity</b><br />
+            Effective: <span id="eAlkalinity">@Model.CalcStats.EffectiveAlk</span> | Residual: <span id="rAlkalinity">@Model.CalcStats.ResidualAlk</span>
+        </div>
+        <div class="col-md-6">
+            <table style="margin: 0 auto; margin-bottom: 10px;">
+                <tr>
+                    <th style="padding: 10px;">Calcium</th>
+                    <th style="padding: 10px;">Magnesium</th>
+                    <th style="padding: 10px;">Sodium</th>
+                    <th style="padding: 10px;">Chloride</th>
+                    <th style="padding: 10px;">Sulfate</th>
+                </tr>
+                <tr>
+                    <td style="text-align: center; vertical-align: middle;" id="calcium">@Model.CalcStats.Calcium</td>
+                    <td style="text-align: center; vertical-align: middle;" id="magnesium">@Model.CalcStats.Magnesium</td>
+                    <td style="text-align: center; vertical-align: middle;" id="sodium">@Model.CalcStats.Sodium</td>
+                    <td style="text-align: center; vertical-align: middle;" id="chloride">@Model.CalcStats.Chloride</td>
+                    <td style="text-align: center; vertical-align: middle;" id="sulfate">@Model.CalcStats.Sulfate</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-2" style="padding-top: 10px;">
+            <b>Chloride/Sulfate Ratio</b><br />
+            <span id="clsoRatio">@Model.CalcStats.CSRatio</span>
+        </div>
+        <div class="col-md-1" style="padding-top: 10px;">
+            <b>pH</b><br />
+            <span id="totalPH">@Model.CalcStats.pH</span>
+        </div>
+    </div>
 </div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WaterProfile.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
