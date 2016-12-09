@@ -8,3 +8,4 @@ wasn't far behind. I started out using Excel spreadsheets, but quickly learned t
 additions were hard to view on mobile devices. So the thought of keeping all my water profiles in one, cloud-based location seemed helpful.
 ## Future Features
 - Mash Water Calculator
+- Welcome Email
