@@ -11,6 +11,8 @@ additions were hard to view on mobile devices. So the thought of keeping all my 
 - Localized Timestamps
 - Delete > Modal
 - Add Beer Styles
+- Save Starting Water Profiles
+- Help Tips for Recommended Ranges
 
 ## Future Features
 - Mash Water Calculator
