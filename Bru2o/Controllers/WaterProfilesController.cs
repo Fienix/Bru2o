@@ -12,7 +12,6 @@ using Bru2o.Helpers;
 
 namespace Bru2o.Controllers
 {
-    [Authorize]
     public class WaterProfilesController : BaseController
     {
         // GET: WaterProfiles
@@ -49,6 +48,7 @@ namespace Bru2o.Controllers
         public ActionResult Create(ProfileData data)
         {
             List<ModelError> allErrors = new List<ModelError>();
+            if (ah.UserID == null) { return View("Details", data); }
             if (ModelState.IsValid)
             {
                 data.WaterProfile.UserID = ah.UserID;
