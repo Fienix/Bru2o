@@ -61,17 +61,28 @@
                     document.getElementById("grainWeight" + [i]).disabled = true;
                     document.getElementById("grainColor" + [i]).disabled = true;
                     document.getElementById("grainMash" + [i]).disabled = true;
+                    document.getElementById("grainWeight" + [i]).style.backgroundColor = "#9f9fa0";
+                    document.getElementById("grainColor" + [i]).style.backgroundColor = "#9f9fa0";
+                    document.getElementById("grainMash" + [i]).style.backgroundColor = "#9f9fa0";
                 }
                 else
                 {
                     document.getElementById("grainWeight" + [i]).disabled = false;
                     document.getElementById("grainColor" + [i]).disabled = false;
                     document.getElementById("grainMash" + [i]).disabled = false;
+                    document.getElementById("grainWeight" + [i]).style.backgroundColor = "";
+                    document.getElementById("grainColor" + [i]).style.backgroundColor = "";
+                    document.getElementById("grainMash" + [i]).style.backgroundColor = "";
                 }
 
                 //if grain isn"t crystal, disable color box
-                if (grainObjects[i].type != 10) { document.getElementById("grainColor" + [i]).disabled = true; }
-                else { document.getElementById("grainColor" + [i]).disabled = false; }
+                if (grainObjects[i].type != 10) {
+                    document.getElementById("grainColor" + [i]).disabled = true;
+                    document.getElementById("grainColor" + [i]).style.backgroundColor = "#9f9fa0";
+                } else {
+                    document.getElementById("grainColor" + [i]).disabled = false;
+                    document.getElementById("grainColor" + [i]).style.backgroundColor = "#fff";
+                }
 
                 //Add up grain weight
                 grainWeight += parseFloat(grainObjects[i].weight);

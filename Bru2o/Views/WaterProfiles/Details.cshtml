@@ -6,89 +6,91 @@
 
 <h2 style="color:#0ce3ac;">@Model.WaterProfile.Title</h2>
 
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Mash Water</h3>
-        </div>
-        <div class="panel-body">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="col-lg-6">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th style="vertical-align:middle;text-align:center;">Water</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.GallonsMashWater Gallons</td>
-                                </tr>
-                                <tr>
-                                    <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.MashWaterDilution % RO Dilution</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-lg-6">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th style="vertical-align:middle;text-align:right;">Addition</th>
-                                    <th style="vertical-align:middle;text-align:center;">Grams (g)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr> 
-                                    @if (Model.WaterProfile.Gypsum > 0)
-                                    {
-                                        <td style="vertical-align:middle;text-align:right;">Gypsum (CaSO<sub>4</sub>)</td>
-                                        <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.Gypsum</td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @if (Model.WaterProfile.CalciumChloride > 0)
-                                    {
-                                        <td style="vertical-align:middle;text-align:right;">Calcium Chloride (CaCL<sub>2</sub>)</td>
-                                        <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.CalciumChloride</td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @if (Model.WaterProfile.EpsomSalt > 0)
-                                    {
-                                        <td style="vertical-align:middle;text-align:right;">Epsom Salt (MgSO<sub>4</sub>)</td>
-                                        <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.EpsomSalt</td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @if (Model.WaterProfile.SlakedLime > 0)
-                                    {
-                                        <td style="vertical-align:middle;text-align:right;">Slaked Lime (Ca(OH)<sub>2</sub>)</td>
-                                        <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.SlakedLime</td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @if (Model.WaterProfile.BakingSoda > 0)
-                                    {
-                                        <td style="vertical-align:middle;text-align:right;">Baking Soda (NaHCO<sub>3</sub>)</td>
-                                        <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.BakingSoda</td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @if (Model.WaterProfile.Chalk > 0)
-                                    {
-                                        <td style="vertical-align:middle;text-align:right;">Chalk (CaCO<sub>3</sub>)</td>
-                                        <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.Chalk</td>
-                                    }
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Mash Water</h3>
+    </div>
+    <div class="panel-body">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-lg-6">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th style="vertical-align:middle;text-align:center;">Water</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.GallonsMashWater Gallons</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.MashWaterDilution % RO Dilution</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-6">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th style="vertical-align:middle;text-align:right;">Addition</th>
+                            <th style="vertical-align:middle;text-align:center;">Grams (g)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr> 
+                            @if (Model.WaterProfile.Gypsum > 0)
+                            {
+                                <td style="vertical-align:middle;text-align:right;">Gypsum (CaSO<sub>4</sub>)</td>
+                                <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.Gypsum</td>
+                            }
+                        </tr>
+                        <tr>
+                            @if (Model.WaterProfile.CalciumChloride > 0)
+                            {
+                                <td style="vertical-align:middle;text-align:right;">Calcium Chloride (CaCL<sub>2</sub>)</td>
+                                <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.CalciumChloride</td>
+                            }
+                        </tr>
+                        <tr>
+                            @if (Model.WaterProfile.EpsomSalt > 0)
+                            {
+                                <td style="vertical-align:middle;text-align:right;">Epsom Salt (MgSO<sub>4</sub>)</td>
+                                <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.EpsomSalt</td>
+                            }
+                        </tr>
+                        <tr>
+                            @if (Model.WaterProfile.SlakedLime > 0)
+                            {
+                                <td style="vertical-align:middle;text-align:right;">Slaked Lime (Ca(OH)<sub>2</sub>)</td>
+                                <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.SlakedLime</td>
+                            }
+                        </tr>
+                        <tr>
+                            @if (Model.WaterProfile.BakingSoda > 0)
+                            {
+                                <td style="vertical-align:middle;text-align:right;">Baking Soda (NaHCO<sub>3</sub>)</td>
+                                <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.BakingSoda</td>
+                            }
+                        </tr>
+                        <tr>
+                            @if (Model.WaterProfile.Chalk > 0)
+                            {
+                                <td style="vertical-align:middle;text-align:right;">Chalk (CaCO<sub>3</sub>)</td>
+                                <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.Chalk</td>
+                            }
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
+@if (Model.WaterProfile.GallonsSpargeWater > 0)
+{ 
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Sparge Water</h3>
@@ -99,71 +101,71 @@
                     <div class="col-lg-6">
                         <table class="table">
                             <thead>
-                                <tr>
-                                    <th style="vertical-align:middle;text-align:center;">Water</th>
-                                </tr>
+                            <tr>
+                                <th style="vertical-align:middle;text-align:center;">Water</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.GallonsSpargeWater Gallons</td>
-                                </tr>
-                                <tr>
-                                    <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.SpargeWaterDilution % RO Dilution</td>
-                                </tr>
+                            <tr>
+                                <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.GallonsSpargeWater Gallons</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:middle;text-align:center;">@Model.WaterProfile.SpargeWaterDilution % RO Dilution</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="col-lg-6">
                         <table class="table">
                             <thead>
-                                <tr>
-                                    <th style="vertical-align:middle;text-align:right;">Addition</th>
-                                    <th style="vertical-align:middle;text-align:center;">Grams (g)</th>
-                                </tr>
+                            <tr>
+                                <th style="vertical-align:middle;text-align:right;">Addition</th>
+                                <th style="vertical-align:middle;text-align:center;">Grams (g)</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    @if (Model.CalcStats.SpargeGypsum > 0)
-                                    {
-                                        <td style="vertical-align:middle;text-align:right;">Gypsum (CaSO<sub>4</sub>)</td>
-                                        <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeGypsum</td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @if (Model.CalcStats.SpargeCalciumChloride > 0)
-                                    {
-                                        <td style="vertical-align:middle;text-align:right;">Calcium Chloride (CaCL<sub>2</sub>)</td>
-                                        <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeCalciumChloride</td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @if (Model.CalcStats.SpargeEpsomSalt > 0)
-                                    {
-                                        <td style="vertical-align:middle;text-align:right;">Epsom Salt (MgSO<sub>4</sub>)</td>
-                                        <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeEpsomSalt</td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @if (Model.CalcStats.SpargeSlakedLime > 0)
-                                    {
-                                        <td style="vertical-align:middle;text-align:right;">Slaked Lime (Ca(OH)<sub>2</sub>)</td>
-                                        <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeSlakedLime</td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @if (Model.CalcStats.SpargeBakingSoda > 0)
-                                    {
-                                        <td style="vertical-align:middle;text-align:right;">Baking Soda (NaHCO<sub>3</sub>)</td>
-                                        <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeBakingSoda</td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @if (Model.CalcStats.SpargeChalk > 0)
-                                    {
-                                        <td style="vertical-align:middle;text-align:right;">Chalk (CaCO<sub>3</sub>)</td>
-                                        <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeChalk</td>
-                                    }
-                                </tr>
+                            <tr>
+                                @if (Model.CalcStats.SpargeGypsum > 0)
+                                {
+                                    <td style="vertical-align:middle;text-align:right;">Gypsum (CaSO<sub>4</sub>)</td>
+                                    <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeGypsum</td>
+                                }
+                            </tr>
+                            <tr>
+                                @if (Model.CalcStats.SpargeCalciumChloride > 0)
+                                {
+                                    <td style="vertical-align:middle;text-align:right;">Calcium Chloride (CaCL<sub>2</sub>)</td>
+                                    <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeCalciumChloride</td>
+                                }
+                            </tr>
+                            <tr>
+                                @if (Model.CalcStats.SpargeEpsomSalt > 0)
+                                {
+                                    <td style="vertical-align:middle;text-align:right;">Epsom Salt (MgSO<sub>4</sub>)</td>
+                                    <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeEpsomSalt</td>
+                                }
+                            </tr>
+                            <tr>
+                                @if (Model.CalcStats.SpargeSlakedLime > 0)
+                                {
+                                    <td style="vertical-align:middle;text-align:right;">Slaked Lime (Ca(OH)<sub>2</sub>)</td>
+                                    <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeSlakedLime</td>
+                                }
+                            </tr>
+                            <tr>
+                                @if (Model.CalcStats.SpargeBakingSoda > 0)
+                                {
+                                    <td style="vertical-align:middle;text-align:right;">Baking Soda (NaHCO<sub>3</sub>)</td>
+                                    <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeBakingSoda</td>
+                                }
+                            </tr>
+                            <tr>
+                                @if (Model.CalcStats.SpargeChalk > 0)
+                                {
+                                    <td style="vertical-align:middle;text-align:right;">Chalk (CaCO<sub>3</sub>)</td>
+                                    <td style="vertical-align:middle;text-align:center;">@Model.CalcStats.SpargeChalk</td>
+                                }
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -171,6 +173,7 @@
             </div>
         </div>
     </div>
+}
 
     <div class="navbar navbar-inverse navbar-fixed-bottom">
     <div class="container">

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Bru2o.Models;
 using Bru2o.Models.ViewModels;
 using Bru2o.Helpers;
+using MvcFlashMessages;
 
 namespace Bru2o.Controllers
 {
@@ -17,6 +18,8 @@ namespace Bru2o.Controllers
         // GET: WaterProfiles
         public ActionResult Index()
         {
+            if (ah.UserID == null) { return RedirectToAction("Create"); }
+
             return View(db.WaterProfiles.Where(x => x.UserID == ah.UserID).ToList());
         }
 
@@ -57,12 +60,14 @@ namespace Bru2o.Controllers
                 db.CalcStats.Add(data.CalcStats);
                 db.WaterProfiles.Add(data.WaterProfile);
                 db.SaveChanges();
-                return RedirectToAction("Index").Success("Successfully created " + data.WaterProfile.Title + ".");
+                this.Flash("success", "Successfully created " + data.WaterProfile.Title + ".");
+                return RedirectToAction("Index");
             }
             else
             {
                 allErrors = ModelState.Values.SelectMany(v => v.Errors).ToList();
-                return View(data).Error(ah.GetFlashErrorString(allErrors));
+                this.Flash("error", ah.GetFlashErrorString(allErrors));
+                return View(data);
             }
         }
         #endregion
@@ -102,12 +107,14 @@ namespace Bru2o.Controllers
                 ProcessGrainInfo(data, wp);
                 ProcessCalcStats(data, cs);
                 db.SaveChanges();
-                return RedirectToAction("Index").Success("Successfully modified " + data.WaterProfile.Title + ".");
+                this.Flash("success", "Successfully modified " + data.WaterProfile.Title + ".");
+                return RedirectToAction("Index");
             }
             else
             {
                 allErrors = ModelState.Values.SelectMany(v => v.Errors).ToList();
-                return View(data).Error(ah.GetFlashErrorString(allErrors));
+                this.Flash("error", ah.GetFlashErrorString(allErrors));
+                return View(data);
             }
         }
 
@@ -175,30 +182,23 @@ namespace Bru2o.Controllers
         #endregion
 
         #region Delete
-        // GET: WaterProfiles/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            WaterProfile waterProfile = db.WaterProfiles.Where(x => x.UserID == ah.UserID && x.ID == id).SingleOrDefault();
-            if (waterProfile == null)
-            {
-                return HttpNotFound();
-            }
-            return View(waterProfile);
-        }
-
         // POST: WaterProfiles/Delete/5
-        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult Delete(int id)
         {
             WaterProfile waterProfile = db.WaterProfiles.Where(x => x.UserID == ah.UserID && x.ID == id).SingleOrDefault();
-            db.WaterProfiles.Remove(waterProfile);
-            db.SaveChanges();
-            return RedirectToAction("Index").Success("Successfully deleted " + waterProfile.Title + ".");
+            if (waterProfile != null)
+            {
+                db.WaterProfiles.Remove(waterProfile);
+                db.SaveChanges();
+
+                this.Flash("success", "Deleted " + waterProfile.Title + ".");
+            }
+            else { this.Flash("error", "Water Profile does not exist."); }
+
+            return Json(new { Url = new UrlHelper(Request.RequestContext).Action("Index", "WaterProfiles") });
+
         }
         #endregion
 

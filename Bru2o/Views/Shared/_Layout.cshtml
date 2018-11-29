@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using MvcFlashMessages
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -34,7 +35,7 @@
     </div>
     <div class="container body-content">
 
-        @Html.Partial("_Flash")
+        @Html.RenderFlash()
 
         @RenderBody()
         <hr />

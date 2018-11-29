@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,6 +50,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MvcFlashMessages, Version=0.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcFlashMessages.0.3.1\lib\MvcFlashMessages.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
@@ -186,7 +190,6 @@
     <Compile Include="Models\CalcStats.cs" />
     <Compile Include="Models\DBCommon.cs" />
     <Compile Include="Models\DBContext.cs" />
-    <Compile Include="Models\FlashMessageExtensions.cs" />
     <Compile Include="Models\GrainInfo.cs" />
     <Compile Include="Models\GrainType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -206,6 +209,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\flash-messages.css" />
     <Content Include="Content\Images\WaterBG.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -231,8 +235,6 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\flash\jquery.cookie.js" />
-    <Content Include="Scripts\flash\jQuery.flashMessage.js" />
     <Content Include="Scripts\UpdateValues.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="SQL\Schema.sql" />
@@ -273,7 +275,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\WaterProfiles\Create.cshtml" />
-    <Content Include="Views\WaterProfiles\Delete.cshtml" />
     <Content Include="Views\WaterProfiles\Details.cshtml" />
     <Content Include="Views\WaterProfiles\Edit.cshtml" />
     <Content Include="Views\WaterProfiles\Index.cshtml" />

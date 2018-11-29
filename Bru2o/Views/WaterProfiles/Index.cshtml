@@ -17,16 +17,66 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td><a href="/WaterProfiles/Details/@item.ID">@Html.DisplayFor(modelItem => item.Title)</a></td>
-        <td>@Html.DisplayFor(modelItem => item.CreateDate)</td>
-        <td>@Html.DisplayFor(modelItem => item.ModifyDate)</td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td><a href="/WaterProfiles/Details/@item.ID">@Html.DisplayFor(modelItem => item.Title)</a></td>
+            <td>@Html.DisplayFor(modelItem => item.CreateDate)</td>
+            <td>@Html.DisplayFor(modelItem => item.ModifyDate)</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                <a href="#deleteModal" data-toggle="modal" data-name="@item.Title" data-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this Water Profile? This process cannot be undone.</p>
+                <p id="waterProfileName"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="deleteButton" data-id="" type="button" class="btn btn-danger delButton">Yes, Delete Water Profile</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <script>
+        $('#deleteModal').on('show.bs.modal', function(e) {
+
+            var name = $(e.relatedTarget).data('name');
+            var id = $(e.relatedTarget).data('id');
+
+            //populate the textbox
+            $(e.currentTarget).find('p[id="waterProfileName"]').text(name);
+            $(e.currentTarget).find('button[id="deleteButton"]').attr('data-id', id);
+        });
+
+        $('#deleteButton').click(function () {
+
+            var id = $(this).data('id');
+
+            $.ajax({
+                url: "/WaterProfiles/Delete",
+                type: "POST",
+                data: { 'id': id, __RequestVerificationToken: $('input[name=__RequestVerificationToken]').val() },
+                dataType: "JSON",
+                success: function(data) {
+                    window.location.href = data.Url;
+                }
+            });
+        });
+    </script>
