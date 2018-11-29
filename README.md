@@ -17,6 +17,7 @@ additions were hard to view on mobile devices. So the thought of keeping all my 
 - ~~Loosen Registration Requirements~~
 
 ## Future Features
+- Print and/or Export to PDF
 - Mash Water Calculator
 - Welcome Email
 - Calculate additions based on Base and Target Profiles
