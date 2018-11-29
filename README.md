@@ -9,12 +9,12 @@ additions were hard to view on mobile devices. So the thought of keeping all my 
 
 ## To Do
 - Localized Timestamps
-- Delete > Modal
+- ~~Delete > Modal~~
 - Add Beer Styles
 - Save Starting Water Profiles
 - Help Tips for Recommended Ranges
 - Use Water Profile without Registering
-- Loosen Registration Requirements
+- ~~Loosen Registration Requirements~~
 
 ## Future Features
 - Mash Water Calculator
