@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Bru2o.Models
 {
@@ -17,7 +18,9 @@ namespace Bru2o.Models
         public DateTime CreateDate { get; set; }
         public DateTime ModifyDate { get; set; }
 
+        [JsonIgnore]
         public virtual WaterProfile WaterProfile { get; set; }
+        [JsonIgnore]
         public virtual GrainType GrainType { get; set; }
 
         public GrainInfo() : base() { }

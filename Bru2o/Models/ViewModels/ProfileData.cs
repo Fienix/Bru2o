@@ -5,14 +5,20 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Newtonsoft.Json;
 
 namespace Bru2o.Models.ViewModels
 {
     public class ProfileData : BaseData
     {
+        public string LocalStorageID { get; set; }
+        public string JsonData { get; set; }
         public WaterProfile WaterProfile { get; set; }
+        [JsonIgnore]
         public List<GrainInfo> GrainInfos { get; set; }
+        [JsonIgnore]
         public List<GrainType> GrainTypes { get; set; }
+        [JsonIgnore]
         public CalcStats CalcStats { get; set; }
 
         public ProfileData() : base() 

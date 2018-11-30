@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Bru2o.Models
 {
@@ -42,6 +43,7 @@ namespace Bru2o.Models
         public DateTime ModifyDate { get; set; }
 
         public virtual ICollection<GrainInfo> GrainInfos { get; set; }
+        [JsonIgnore]
         public virtual ICollection<CalcStats> CalcStats { get; set; }
     }
 }

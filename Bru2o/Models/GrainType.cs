@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Bru2o.Models
 {
@@ -15,6 +16,7 @@ namespace Bru2o.Models
         public string Name { get; set; }
         public decimal DefaultPH { get; set; }
 
+        [JsonIgnore]
         [ScriptIgnore(ApplyToOverrides = true)]
         public virtual List<GrainInfo> GrainInfos { get; set; }
     }

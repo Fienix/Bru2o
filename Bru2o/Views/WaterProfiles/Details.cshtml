@@ -1,7 +1,9 @@
-﻿@model Bru2o.Models.ViewModels.ProfileData
+﻿@using Bru2o.Helpers
+@model Bru2o.Models.ViewModels.ProfileData
 
 @{
     ViewBag.Title = Model.WaterProfile.Title + " - Details";
+    AppHelper ah = new AppHelper();
 }
 
 <h2 style="color:#0ce3ac;">@Model.WaterProfile.Title</h2>
@@ -211,6 +213,40 @@
 </div>
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.WaterProfile.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (ah.UserID != null)
+    {
+        <span>@Html.ActionLink("Edit", "Edit", new {id = Model.WaterProfile.ID})</span>
+    }
+    else
+    {
+        <a id="editLocal" href="">Edit</a>
+    }
+    | @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+<script>
+
+    $(window).on('load', function () {
+        localStorage.setItem('@Model.LocalStorageID', JSON.stringify(@Html.Raw(Model.JsonData)));
+    });
+
+
+    $('#editLocal').click(function (e) {
+
+        e.preventDefault();
+
+        var d = localStorage.getItem('@Model.LocalStorageID');
+
+        $.ajax({
+            url: "/WaterProfiles/EditLocal",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ 'data': d }),
+            dataType: "JSON",
+            success: function(data) {
+                window.location.href = data.url;
+            }
+        });
+    });
+</script>

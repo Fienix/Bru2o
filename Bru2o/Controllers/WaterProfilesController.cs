@@ -10,6 +10,7 @@ using Bru2o.Models;
 using Bru2o.Models.ViewModels;
 using Bru2o.Helpers;
 using MvcFlashMessages;
+using Newtonsoft.Json;
 
 namespace Bru2o.Controllers
 {
@@ -38,6 +39,12 @@ namespace Bru2o.Controllers
             return View(data);
         }
 
+        public ActionResult DetailsLocal()
+        {
+            ProfileData data = (ProfileData)TempData["waterProfile"];
+            return View("Details", data);
+        }
+
         #region Create
         // GET: WaterProfiles/Create
         public ActionResult Create()
@@ -51,12 +58,27 @@ namespace Bru2o.Controllers
         public ActionResult Create(ProfileData data)
         {
             List<ModelError> allErrors = new List<ModelError>();
-            if (ah.UserID == null) { return View("Details", data); }
+
+            foreach (GrainInfo g in data.GrainInfos) { if (g.GrainTypeID > 1) { data.WaterProfile.GrainInfos.Add(g); } }
+            data.CalcStats.WaterProfile = data.WaterProfile;
+
+            if (ah.UserID == null)
+            {
+                data.LocalStorageID = GenerateLocalStorageID();
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                    Formatting = Formatting.Indented
+                };
+
+                data.JsonData = JsonConvert.SerializeObject(data, settings);
+                TempData["waterProfile"] = data;
+                return RedirectToAction("DetailsLocal");
+            }
+
             if (ModelState.IsValid)
             {
                 data.WaterProfile.UserID = ah.UserID;
-                foreach (GrainInfo g in data.GrainInfos) { if (g.GrainTypeID > 1) { data.WaterProfile.GrainInfos.Add(g); } }
-                data.CalcStats.WaterProfile = data.WaterProfile;
                 db.CalcStats.Add(data.CalcStats);
                 db.WaterProfiles.Add(data.WaterProfile);
                 db.SaveChanges();
@@ -70,6 +92,14 @@ namespace Bru2o.Controllers
                 return View(data);
             }
         }
+
+        private string GenerateLocalStorageID()
+        {
+            Random random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, 8)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
         #endregion
 
         #region Edit
@@ -82,6 +112,20 @@ namespace Bru2o.Controllers
                 return HttpNotFound();
             }
             return View(data);
+        }
+
+        public ActionResult EditLocal()
+        {
+            ProfileData data = (ProfileData)TempData["waterProfile"];
+            return View("Edit", data);
+        }
+
+        [HttpPost]
+        public ActionResult EditLocal(string data)
+        {
+            ProfileData x = JsonConvert.DeserializeObject<ProfileData>(data);
+            TempData["waterProfile"] = x;
+            return Json(new { url = new UrlHelper(Request.RequestContext).Action("EditLocal", "WaterProfiles") }, JsonRequestBehavior.AllowGet);
         }
 
         // POST: WaterProfiles/Edit/5
