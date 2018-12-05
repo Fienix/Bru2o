@@ -19,9 +19,27 @@ namespace Bru2o.Controllers
         // GET: WaterProfiles
         public ActionResult Index()
         {
-            if (ah.UserID == null) { return RedirectToAction("Create"); }
-
             return View(db.WaterProfiles.Where(x => x.UserID == ah.UserID).ToList());
+        }
+
+        [HttpPost]
+        public ActionResult IndexLocal(string[] data)
+        {
+            if (data == null) { return Json(new {success = false, responseText = "Data is null."}); }
+
+            List<ProfileData> d = new List<ProfileData>();
+            foreach (string p in data)
+            {
+                d.Add(JsonConvert.DeserializeObject<ProfileData>(p));
+            }
+
+            List<WaterProfile> viewModel = d.Select(x => x.WaterProfile).ToList();
+
+            return Json(new
+            {
+                success = true,
+                html = RenderRazorViewToString(ControllerContext, "_IndexTableContent", viewModel)
+            });
         }
 
         // GET: WaterProfiles/Details/5
@@ -71,6 +89,8 @@ namespace Bru2o.Controllers
                     Formatting = Formatting.Indented
                 };
 
+                data.WaterProfile.CreateDate = DateTime.Now;
+                data.WaterProfile.ModifyDate = DateTime.Now;
                 data.JsonData = JsonConvert.SerializeObject(data, settings);
                 TempData["waterProfile"] = data;
                 return RedirectToAction("DetailsLocal");
@@ -249,6 +269,19 @@ namespace Bru2o.Controllers
         public ActionResult GetGrainTypes()
         {
             return Json(db.GrainTypes.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        private string RenderRazorViewToString(ControllerContext controllerContext, string viewName, object model)
+        {
+            controllerContext.Controller.ViewData.Model = model;
+            using (var sw = new System.IO.StringWriter())
+            {
+                var ViewResult = ViewEngines.Engines.FindPartialView(controllerContext, viewName);
+                var ViewContext = new ViewContext(controllerContext, ViewResult.View, controllerContext.Controller.ViewData, controllerContext.Controller.TempData, sw);
+                ViewResult.View.Render(ViewContext, sw);
+                ViewResult.ViewEngine.ReleaseView(controllerContext, ViewResult.View);
+                return sw.GetStringBuilder().ToString();
+            }
         }
 
         protected override void Dispose(bool disposing)

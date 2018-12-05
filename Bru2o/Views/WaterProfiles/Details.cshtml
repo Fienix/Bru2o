@@ -228,7 +228,10 @@
 <script>
 
     $(window).on('load', function () {
-        localStorage.setItem('@Model.LocalStorageID', JSON.stringify(@Html.Raw(Model.JsonData)));
+        @if (Model.WaterProfile.UserID == null)
+        {
+            @:localStorage.setItem('@Model.LocalStorageID', JSON.stringify(@Html.Raw(Model.JsonData)));
+        }
     });
 
 

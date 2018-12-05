@@ -10,26 +10,16 @@
     <a href="/WaterProfiles/Create" class="btn btn-primary">New Profile</a>
 </p>
 <table class="table">
-    <tr>
-        <th>Water Profile</th>
-        <th>Created (UTC)</th>
-        <th>Modified (UTC)</th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <tbody>
         <tr>
-            <td><a href="/WaterProfiles/Details/@item.ID">@Html.DisplayFor(modelItem => item.Title)</a></td>
-            <td>@Html.DisplayFor(modelItem => item.CreateDate)</td>
-            <td>@Html.DisplayFor(modelItem => item.ModifyDate)</td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                <a href="#deleteModal" data-toggle="modal" data-name="@item.Title" data-id="@item.ID">Delete</a>
-            </td>
+            <th>Water Profile</th>
+            <th>Created (UTC)</th>
+            <th>Modified (UTC)</th>
+            <th></th>
         </tr>
-    }
 
+        @Html.Partial("_IndexTableContent", Model)
+    </tbody>
 </table>
 
 <div class="modal" id="deleteModal">
@@ -54,29 +44,62 @@
 </div>
 
     
-    <script>
-        $('#deleteModal').on('show.bs.modal', function(e) {
+<script>
+    $(document).ready(function () {
+        var x = allStorage();
 
-            var name = $(e.relatedTarget).data('name');
-            var id = $(e.relatedTarget).data('id');
+        $.ajax({
+            url: "/WaterProfiles/IndexLocal",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ 'data':  x}),
+            dataType: "JSON",
+            success: function (data) {
+                console.log(data);
+                $("table tbody").append(data.html);
+            }
+        });
+    });
 
-            //populate the textbox
-            $(e.currentTarget).find('p[id="waterProfileName"]').text(name);
-            $(e.currentTarget).find('button[id="deleteButton"]').attr('data-id', id);
+    function allStorage() {
+
+        var values = [];
+        var keys = Object.keys(localStorage);
+
+        for (var i = 0; i < keys.length; i++) {
+            values.push( localStorage.getItem(keys[i]) );
+        }
+
+        values = values.filter(function (x) {
+            return x != "undefined";
         });
 
-        $('#deleteButton').click(function () {
+        return values;
+    }
+    
 
-            var id = $(this).data('id');
+    $('#deleteModal').on('show.bs.modal', function(e) {
 
-            $.ajax({
-                url: "/WaterProfiles/Delete",
-                type: "POST",
-                data: { 'id': id, __RequestVerificationToken: $('input[name=__RequestVerificationToken]').val() },
-                dataType: "JSON",
-                success: function(data) {
-                    window.location.href = data.Url;
-                }
-            });
+        var name = $(e.relatedTarget).data('name');
+        var id = $(e.relatedTarget).data('id');
+
+        //populate the textbox
+        $(e.currentTarget).find('p[id="waterProfileName"]').text(name);
+        $(e.currentTarget).find('button[id="deleteButton"]').attr('data-id', id);
+    });
+
+    $('#deleteButton').click(function () {
+
+        var id = $(this).data('id');
+
+        $.ajax({
+            url: "/WaterProfiles/Delete",
+            type: "POST",
+            data: { 'id': id, __RequestVerificationToken: $('input[name=__RequestVerificationToken]').val() },
+            dataType: "JSON",
+            success: function(data) {
+                window.location.href = data.Url;
+            }
         });
-    </script>
+    });
+</script>
