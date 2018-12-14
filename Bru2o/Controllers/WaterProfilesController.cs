@@ -19,7 +19,15 @@ namespace Bru2o.Controllers
         //Return Index view with user water profiles
         public ActionResult Index()
         {
-            return View(db.WaterProfiles.Where(x => x.UserID == ah.UserID).ToList());
+            List<int> waterProfileIDs = db.WaterProfiles.Where(x => x.UserID == ah.UserID).Select(x => x.ID).ToList();
+            List<ProfileData> viewModel = new List<ProfileData>();
+
+            foreach (int id in waterProfileIDs)
+            {
+                viewModel.Add(new ProfileData(id));
+            }
+
+            return View(viewModel);
         }
 
         //After Index page load, return water profiles from client local storage
@@ -28,13 +36,11 @@ namespace Bru2o.Controllers
         {
             if (data == null) { return Json(new {success = false, responseText = "Data is null."}); }
 
-            List<ProfileData> d = new List<ProfileData>();
+            List<ProfileData> viewModel = new List<ProfileData>();
             foreach (string p in data)
             {
-                d.Add(JsonConvert.DeserializeObject<ProfileData>(p));
+                viewModel.Add(JsonConvert.DeserializeObject<ProfileData>(p));
             }
-
-            List<WaterProfile> viewModel = d.Select(x => x.WaterProfile).ToList();
 
             return Json(new
             {
@@ -50,19 +56,21 @@ namespace Bru2o.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProfileData data = new ProfileData(id.Value);
-            if (data.WaterProfile == null)
+            ProfileData viewModel = new ProfileData(id.Value);
+            if (viewModel.WaterProfile == null)
             {
                 return HttpNotFound();
             }
-            return View(data);
+            return View(viewModel);
         }
 
-        //TODO: Details from local storage
-        public ActionResult DetailsLocal()
+        //Redirected from Create post if no user
+        //Called from Index page if ID = 0, sends local storage JSON string
+        //for a water profile
+        public ActionResult DetailsLocal(string data)
         {
-            ProfileData data = (ProfileData)TempData["waterProfile"];
-            return View("Details", data);
+            ProfileData viewModel = string.IsNullOrWhiteSpace(data) ? (ProfileData) TempData["waterProfile"] : JsonConvert.DeserializeObject<ProfileData>(data);
+            return View("Details", viewModel);
         }
 
         #region Create
@@ -262,7 +270,7 @@ namespace Bru2o.Controllers
 
         #region Delete
         //Delete a water profile from database
-        //TODO: Create AJAX call to delete from local storage in details.cshtml
+        //Local storage profiles are deleted via jQuery
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Delete(int id)

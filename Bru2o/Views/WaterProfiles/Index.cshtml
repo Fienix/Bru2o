@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Bru2o.Models.WaterProfile>
+﻿@model IEnumerable<Bru2o.Models.ViewModels.ProfileData>
 
 @{
     ViewBag.Title = "Index";
@@ -36,7 +36,7 @@
                 <p id="waterProfileName"></p>
             </div>
             <div class="modal-footer">
-                <button id="deleteButton" data-id="" type="button" class="btn btn-danger delButton">Yes, Delete Water Profile</button>
+                <button id="deleteButton" data-id="" data-key="" type="button" class="btn btn-danger delButton">Yes, Delete Water Profile</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
             </div>
         </div>
@@ -82,24 +82,32 @@
 
         var name = $(e.relatedTarget).data('name');
         var id = $(e.relatedTarget).data('id');
+        var key = $(e.relatedTarget).data('key');
 
         //populate the textbox
         $(e.currentTarget).find('p[id="waterProfileName"]').text(name);
         $(e.currentTarget).find('button[id="deleteButton"]').attr('data-id', id);
+        $(e.currentTarget).find('button[id="deleteButton"]').attr('data-key', key);
     });
 
     $('#deleteButton').click(function () {
 
         var id = $(this).data('id');
-
-        $.ajax({
-            url: "/WaterProfiles/Delete",
-            type: "POST",
-            data: { 'id': id, __RequestVerificationToken: $('input[name=__RequestVerificationToken]').val() },
-            dataType: "JSON",
-            success: function(data) {
-                window.location.href = data.Url;
-            }
-        });
+        var key = $(this).data('key');
+        console.log(key);
+        if (key != null) {
+            localStorage.removeItem(key);
+            location.reload();
+        } else {
+            $.ajax({
+                url: "/WaterProfiles/Delete",
+                type: "POST",
+                data: { 'id': id, __RequestVerificationToken: $('input[name=__RequestVerificationToken]').val() },
+                dataType: "JSON",
+                success: function (data) {
+                    window.location.href = data.Url;
+                }
+            });
+        }
     });
 </script>

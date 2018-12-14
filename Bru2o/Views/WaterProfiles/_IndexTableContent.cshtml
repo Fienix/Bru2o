@@ -1,14 +1,14 @@
-﻿@model IEnumerable<Bru2o.Models.WaterProfile>
+﻿@model IEnumerable<Bru2o.Models.ViewModels.ProfileData>
 
 @foreach (var item in Model)
 {
     <tr>
-        <td><a href="/WaterProfiles/Details/@item.ID">@Html.DisplayFor(modelItem => item.Title)</a></td>
-        <td>@Html.DisplayFor(modelItem => item.CreateDate)</td>
-        <td>@Html.DisplayFor(modelItem => item.ModifyDate)</td>
+        <td><a href="/WaterProfiles/Details/@item.WaterProfile.ID">@Html.DisplayFor(modelItem => item.WaterProfile.Title)</a></td>
+        <td>@Html.DisplayFor(modelItem => item.WaterProfile.CreateDate)</td>
+        <td>@Html.DisplayFor(modelItem => item.WaterProfile.ModifyDate)</td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-            <a href="#deleteModal" data-toggle="modal" data-name="@item.Title" data-id="@item.ID">Delete</a>
+            @Html.ActionLink("Edit", "Edit", new { id = item.WaterProfile.ID }) |
+            <a href="#deleteModal" data-toggle="modal" data-name="@item.WaterProfile.Title" data-id="@item.WaterProfile.ID" data-key="@item.LocalStorageID">Delete</a>
         </td>
     </tr>
 }
