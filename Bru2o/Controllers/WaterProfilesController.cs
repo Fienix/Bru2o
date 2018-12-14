@@ -16,12 +16,13 @@ namespace Bru2o.Controllers
 {
     public class WaterProfilesController : BaseController
     {
-        // GET: WaterProfiles
+        //Return Index view with user water profiles
         public ActionResult Index()
         {
             return View(db.WaterProfiles.Where(x => x.UserID == ah.UserID).ToList());
         }
 
+        //After Index page load, return water profiles from client local storage
         [HttpPost]
         public ActionResult IndexLocal(string[] data)
         {
@@ -42,7 +43,7 @@ namespace Bru2o.Controllers
             });
         }
 
-        // GET: WaterProfiles/Details/5
+        //Return details of a user water profile
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -57,6 +58,7 @@ namespace Bru2o.Controllers
             return View(data);
         }
 
+        //TODO: Details from local storage
         public ActionResult DetailsLocal()
         {
             ProfileData data = (ProfileData)TempData["waterProfile"];
@@ -64,13 +66,14 @@ namespace Bru2o.Controllers
         }
 
         #region Create
-        // GET: WaterProfiles/Create
+        //Create a new water profile (user or client)
         public ActionResult Create()
         {
             return View(new ProfileData());
         }
 
-        // POST: WaterProfiles/Create
+        //Create water profile, save to either database for user or serialize it and
+        //return it to the client for local storage. Redirec to details view
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ProfileData data)
@@ -113,6 +116,7 @@ namespace Bru2o.Controllers
             }
         }
 
+        //Generate random key for local storage on client
         private string GenerateLocalStorageID()
         {
             Random random = new Random();
@@ -123,7 +127,7 @@ namespace Bru2o.Controllers
         #endregion
 
         #region Edit
-        // GET: WaterProfiles/Edit/5
+        //Edit a user water profile
         public ActionResult Edit(int id)
         {
             ProfileData data = new ProfileData(id);
@@ -134,12 +138,9 @@ namespace Bru2o.Controllers
             return View(data);
         }
 
-        public ActionResult EditLocal()
-        {
-            ProfileData data = (ProfileData)TempData["waterProfile"];
-            return View("Edit", data);
-        }
-
+        //Accepts a local storage water profile
+        //Deserializes the water profile, sets tempdata to be used in the
+        //edit redirect
         [HttpPost]
         public ActionResult EditLocal(string data)
         {
@@ -148,7 +149,17 @@ namespace Bru2o.Controllers
             return Json(new { url = new UrlHelper(Request.RequestContext).Action("EditLocal", "WaterProfiles") }, JsonRequestBehavior.AllowGet);
         }
 
-        // POST: WaterProfiles/Edit/5
+        //Called by AJAX success on water profiles detail page
+        //Returns edit view for local storage water profile
+        //Gets tempdata from EditLocal post method
+        public ActionResult EditLocal()
+        {
+            ProfileData data = (ProfileData)TempData["waterProfile"];
+            return View("Edit", data);
+        }
+
+        //Save edited water profile to database or local storage
+        //TODO: breakout common functionality and create local edit post to save
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ProfileData data)
@@ -182,6 +193,8 @@ namespace Bru2o.Controllers
             }
         }
 
+        //Breakout property mapping for editing water profiles
+        #region Mapping
         private void ProcessWaterProfile(ProfileData data, WaterProfile wp)
         {
             wp.AcidulatedMalt = data.WaterProfile.AcidulatedMalt;
@@ -245,8 +258,11 @@ namespace Bru2o.Controllers
         }
         #endregion
 
+        #endregion
+
         #region Delete
-        // POST: WaterProfiles/Delete/5
+        //Delete a water profile from database
+        //TODO: Create AJAX call to delete from local storage in details.cshtml
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Delete(int id)
@@ -266,11 +282,13 @@ namespace Bru2o.Controllers
         }
         #endregion
 
+        //Used by UpdateValues.js to retrieve grain types from database
         public ActionResult GetGrainTypes()
         {
             return Json(db.GrainTypes.ToList(), JsonRequestBehavior.AllowGet);
         }
 
+        //Utility to render partial views as HTML strings
         private string RenderRazorViewToString(ControllerContext controllerContext, string viewName, object model)
         {
             controllerContext.Controller.ViewData.Model = model;
